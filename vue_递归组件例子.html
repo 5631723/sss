@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    li {
+      margin: 0px 15px;
+      padding: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div v-for="item in arr">
+      <p> {{item.name}}</p>
+      <List :list="item.child" v-if="item.child"></List>
+    </div>
+  </div>
+
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  const arr = [{
+    name: "水果",
+    child: [{
+      name: "香蕉",
+      child: [{
+        name: "进口香蕉",
+        child: [{
+          name: "菲律宾进口"
+        }, {
+          name: "泰国进口"
+        }]
+      }, {
+        name: "国产香蕉",
+        child: [{
+          name: "海南"
+        }, {
+          name: "广西"
+        }]
+      }]
+    }, {
+      name: "苹果",
+      child: [{
+        name: "进口苹果"
+      }, {
+        name: "国产苹果",
+        child: [{
+          name: "河南灵宝"
+        }, {
+          name: "山东"
+        }]
+      }]
+    }]
+
+  }, {
+    name: "服装",
+    child: [{
+      name: "男装"
+    }, {
+      name: "女装"
+    }]
+
+  }]
+
+  //递归组件
+  Vue.component('list', {
+    template: `<div>
+                  <ol><li v-for="item in list">
+                    <p>{{item.name}}</p>
+                      <list :list="item.child"></list>
+                    </li>
+                  </ol>
+              </div>`,
+    props: ['list']
+  })
+
+
+  new Vue({
+    el: "#app",
+    data: {
+      arr: arr
+    },
+
+  })
+</script>
+
+</html>

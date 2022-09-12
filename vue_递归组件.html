@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <my-link></my-link>
+
+  </div>
+
+
+  <template id='temp'>
+    <div>
+      <div><a href="#">www.baidu.com  {{num}}</a></div>
+      <p>
+        <!-- 递归：组件内调用自己，会超过最大堆栈 -->
+        <my-link v-if='num<10' :num='num+1'></my-link>
+      </p>
+    </div>
+  </template>
+
+
+</body>
+
+<script src="./js/vue.js"></script>
+<script>
+  Vue.component('my-link', {
+    template: '#temp',
+    //通过参数来控制递归，通过v-if来判断结束
+    props: {
+      num: {//为传递的参数设置一个默认值，props可以使用数组或对象来传递，使用对象可以增加约束、默认值、功能
+        default: 1
+      }
+    }
+
+  })
+
+  let vm = new Vue({
+    el: '#app',
+    data: {}
+  })
+</script>
+
+</html>

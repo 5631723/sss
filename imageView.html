@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.11.0.js"></script>
+	</head>
+
+	<body>
+
+		<input type="file" id="f1" />
+		<br />
+		<img src="img/thumb-4.jpg" id="m1" />
+		<img src="img/thumb-4.jpg" id="m2" />
+	</body>
+
+</html>
+
+<script>
+	//上传控件内容改变时触发
+	$("#f1").change(function() {
+				//将上传的文件创造出一个对应的URL地址
+				var path = URL.createObjectURL(this.files[0])
+				//修改图片资源地址
+				$("#m1").attr("src", path);
+
+	});
+
+	var img = "img/thumb-4.jpg"; //imgurl 就是你的图片路径  
+
+	function getBase64Image(img) {
+		var canvas = document.createElement("canvas");
+		canvas.width = img.width;
+		canvas.height = img.height;
+		var ctx = canvas.getContext("2d");
+		ctx.drawImage(img, 0, 0, img.width, img.height);
+		var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+		var dataURL = canvas.toDataURL("image/" + ext);
+		return dataURL;
+	}
+
+	var image = new Image();
+	image.src = img;
+	image.onload = function() {
+		var base64 = getBase64Image(image);
+		console.log(base64);
+		document.getElementById("m2").src = base64;
+	}
+</script>

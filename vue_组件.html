@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- 头部 -->
+    <!-- :phone是传递的动态参数,数据来自vue实例中的定义 -->
+    <my-header title='这是参数' address='湖北,武汉' :phone='phone'></my-header>
+    <!-- 内容 -->
+    <my-body></my-body>
+    <!-- 底部 -->
+    <my-footer></my-footer>
+
+    <!-- 其他 -->
+    <my-other></my-other>
+
+  </div>
+
+  <!-- 使用模板定义组件 -->
+  <template id='bottom'>
+    <div>
+      <hr />bottom
+      tel:{{tel}}
+    </div>
+  </template>
+
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  //定义全局组件,注意命名方式及调用
+  Vue.component('myHeader', {
+    template: `<div>
+      <h2>header</h2>
+      <h3>{{title}},{{address}}</h3>
+      phone:{{phone}}
+      </div>`,
+    props: ['title', 'address', 'phone'], //用于接收组件的参数，以属性形式传递进来,在使用时和data的用法一样,属性参数也可以动态绑定
+  })
+
+  //组件里可以定义data methods ,data是一个函数，返回一个对象
+  Vue.component('myBody', {
+    template: `<div>
+      <p>content:{{msg}}</p>
+      </div>`,
+    data() {
+      return {
+        msg: '这是数据内容'
+      }
+    },
+  })
+
+
+
+
+  // Vue.component('my-footer', {
+  //   template: '#bottom',
+  // })
+
+  new Vue({
+    el: '#app',
+    data: {
+      phone: '1771234567'
+    },
+    //局部组件
+    components: {
+      'my-footer': {
+        template: '#bottom',
+        //组件内的数据
+        data() {
+          return {
+            tel: '87878787'
+          }
+        }
+      },
+      'myOther': {
+        template: `<div>定义多个组件</div>`
+      }
+    }
+  })
+</script>
+
+</html>

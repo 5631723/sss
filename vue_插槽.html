@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>插槽</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- 组件内数据通过属性props传递，标签通过插槽slot传递 -->
+    <my-nav :about='about'>
+      <!-- 匿名插槽，直接在组件中定义，可以定义多个标签(可以不连在一起，显示时自动堆到一起)，这就是插槽 ，匿名插槽默认的名字是default-->
+      <li style='color:firebrick'>产品中心</li>
+      <li style='color:firebrick'>新闻中心</li>
+
+      <!-- 具名插槽，为插槽起名字 -->
+      <template v-slot:index>
+        <li style='color:darkblue'>首页（具名插槽）</li>
+      </template>
+      <template v-slot:product>
+        <li style='color:darkblue'>产品（具名插槽）</li>
+      </template>
+
+      <!-- 插槽默认值 -->
+      <template v-slot:kong>
+        <!-- <li>我有东西</li> -->
+      </template>
+
+      <!-- 插槽简写 -->
+      <template #simple>
+        <div>
+          #simple 这是插槽简写
+        </div>
+      </template>
+
+
+      <!-- 接收名为trans的插槽，并获取调用时传递过来的数据 ,props是任意起的名字，其中包含插槽使用是含有的属性名称-->
+      <template #trans='props'>
+        <div>
+          {{props}}
+          {{props.a}}
+        </div>
+      </template>
+      <!-- 此处代码可以解构赋值 -->
+      <!-- <template #trans='{a,age}'>
+        <div>
+          通过解构赋值直接获取
+          {{a}}
+          {{age}}
+        </div>
+      </template> -->
+
+
+    </my-nav>
+  </div>
+
+  <!-- 模板 -->
+  <template id='nav'>
+    <div>
+      <ul>
+        <li>首页</li>
+        <li>新闻中心</li>
+        <li>联系我们</li>
+        <li>{{about}}</li>
+
+        <!-- 在组件中定义的标签，可以直接通过slot标签接收 -->
+        <slot></slot>
+        <!-- 默认为default的插槽，也是匿名插槽 -->
+        <slot name='default'></slot>
+
+        <!-- 具名插槽 ,官方推荐在使用具名插槽的时候，将插槽内容写在template中，且包含v-slot指令-->
+        <slot name='index'></slot>
+        <slot name='product'></slot>
+
+        <!-- 插槽默认值 -->
+        <slot name='kong'>
+          <p>插槽没有传数据，就显示这个</p>
+        </slot>
+
+        <!-- 插槽简写调用 -->
+        <slot name='simple'></slot>
+
+
+        <!-- 通过插槽反向传递数据到插槽定义，调用名为trans的插槽，并为插槽传递a属性 -->
+        <slot name='trans' a='1' age='33'>
+
+        </slot>
+
+
+      </ul>
+    </div>
+  </template>
+
+</body>
+<script src="./js/vue.js"></script>
+<script>
+
+  // 用变量定义组件参数,使结构看起来简单一些
+  let myNav = {
+    template: '#nav',
+    data() {
+      return {}
+    },
+    props: ['about']
+
+  }
+
+  //插槽是组件之间用于传递html的作用
+  new Vue({
+    el: '#app',
+    data: {
+      about: '关于我们'
+    },
+    components: {
+      myNav
+    }
+  })
+</script>
+
+</html>

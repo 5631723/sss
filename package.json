@@ -1,0 +1,7 @@
+{
+    "name": "sayHello",
+    "main": "./lib/sayHello.js",
+    "dependencies": {
+        "typescript": "^4.4.2"
+    }
+}

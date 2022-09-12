@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>template</title>
+</head>
+
+<body>
+
+  <div id="app">
+
+  </div>
+<!-- 推荐使用这种模板 -->
+<template id='temp'>
+  <div>
+    我可以直接用标签定义
+    <p>{{a}}</p>
+    <input type="text" v-model='a'>
+  </div>
+</template>
+<!-- 也可以使用脚本来定义模板 -->
+<script id='jsTemp' type='template'>
+  <div>
+    我可以直接用标签定义
+    <p>{{a}}</p>
+    <input type="text" v-model='a'>
+  </div>
+</script>
+
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      a: 1,
+    },
+    // template: `<p>我是模板，我会替换#app,我必须只有且只有一个根标签</p>`   //可以直接定义
+    // template:'#temp'    //可以通过标签直接定义
+    template:'#jsTemp'
+  })
+</script>
+
+</html>

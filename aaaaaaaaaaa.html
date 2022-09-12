@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="./js/vue.js"></script><!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.css">
+
+	<style>
+		img {
+			width: 100px;
+		}
+
+		[type=text],
+		[type='button'] {
+			width: 30px;
+			text-align: center;
+			vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+
+
+	<div id="app">
+		<table class='table table-bordered'>
+			<thead>
+				<tr>
+					<th>选择</th>
+					<th>名称</th>
+					<th>图片</th>
+					<th>数量</th>
+					<th>价格</th>
+					<th>小计</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for='item,index in goodsList'>
+					<td><input type="checkbox" v-model='item.checked'></td>
+					<td>{{item.goodsName}}</td>
+					<td><img :src="item.goodsImg" alt=""></td>
+					<td><input type="button" value='-' @click='minus(index)'><input type="text" v-model='item.goodsCount'
+							disabled><input type="button" value='+' @click='plus(index)'></td>
+					<td>￥{{item.goodsPrice}}</td>
+					<td>{{sumPrice(index)}}</td>
+					<td><button @click='del(index)'>删除</button></td>
+
+				</tr>
+			</tbody>
+		</table>
+
+		<div>
+			<span>共选中{{selectAll}}项目,共{{selectCount}}件商品,总价{{selectTotal}}元</span>
+		</div>
+	</div>
+
+	<script>
+		var data = {
+			goodsList: [{
+				checked: false,
+				goodsImg: 'img/thumb-4.jpg',
+				goodsName: 'abc',
+				goodsPrice: 150,
+				goodsCount: 1
+			}, {
+				checked: false,
+				goodsImg: 'img/thumb-4.jpg',
+				goodsName: 'abc',
+				goodsPrice: 150,
+				goodsCount: 1
+			}, {
+				checked: false,
+				goodsImg: 'img/thumb-4.jpg',
+				goodsName: 'abc',
+				goodsPrice: 150,
+				goodsCount: 1
+			}]
+		};
+		const app = new Vue({
+			el: '#app',
+			data: data,
+			computed: {
+				selectAll: function () {
+					let c = 0;
+					for (const key in this.goodsList) {
+						if (this.goodsList[key].checked) {
+							c++
+						}
+					}
+					return c;
+				},
+				selectCount: function () {
+					let c = 0;
+					for (const key in this.goodsList) {
+						if (this.goodsList[key].checked) {
+							c += this.goodsList[key].goodsCount
+						}
+					}
+					return c;
+				},
+				selectTotal: function () {
+					let c = 0;
+					for (const key in this.goodsList) {
+						if (this.goodsList[key].checked) {
+							c += this.goodsList[key].goodsCount * this.goodsList[key].goodsPrice
+						}
+					}
+					return c;
+				}
+			},
+			methods: {
+				sumPrice: function (i) {
+					return "￥" + (this.goodsList[i].goodsCount * this.goodsList[i].goodsPrice).toFixed(2);
+				},
+				plus: function (i) {
+					this.goodsList[i].goodsCount++
+				},
+				minus: function (i) {
+					this.goodsList[i].goodsCount--
+				},
+				del: function (i) {
+					if (confirm("确定删除吗?")) {
+						this.goodsList.splice(i, 1);
+					}
+				}
+			}
+
+		});
+
+		Vue.set(data.goodsList[0], "goodsName", 'aaa')
+	</script>
+
+
+</body>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			p {
+				width: 150px;
+				margin: 5px;
+				padding: 5px;
+				background-color: #555555;
+				color: #FFFFFF;
+			}
+
+			div {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				/* flex-flow: row wrap; */
+				justify-content: flex-start;
+				align-items: stretch;
+
+			}
+
+			p:nth-child(3) {
+				align-self: flex-end;
+			}
+
+			p:nth-child(2) {
+				order: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus voluptatum praesentium veritatis
+				iure suscipit qui possimus eum repellat tempore aperiam tempora debitis voluptas autem. </p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea sapiente dolor at! Eligendi id quibusdam
+				itaque debitis placeat pariatur asperiores quam minima?</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
+		</div>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+  <style>
+    .highlight {
+      background-color: cadetblue;
+    }
+    .card{
+      width: 300px;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <div v-for='person in personList'>
+      <gl-card :person='person'></gl-card>
+    </div>
+  </div>
+
+  <template id="temp">
+    <div class="card" :class='[highlight]' @click='changePerson'>
+      <h3>{{person.name}}({{person.post}})</h3>
+      <p>{{person.company}}</p>
+      <small>
+        {{person.email}}|{{person.time}}
+      </small>
+      <div v-show='select'>
+        您选择了{{person.name}}{{person.post}}
+      </div>
+    </div>
+  </template>
+</body>
+
+</html>
+<script>
+  var personList = [{
+      name: '格莱',
+      post: '总监',
+      date: '01/20/20',
+      email: 'gelai@glkjjt.com',
+      company: '武汉格莱信息科技有限公司'
+    },
+    {
+      name: '小格',
+      post: '督导',
+      date: '01/21/21',
+      email: 'gelai@glkjjt.com',
+      company: '武汉格莱信息科技有限公司'
+    }, {
+      name: '小莱',
+      post: '部长',
+      date: '01/20/19',
+      email: 'gelai@glkjjt.com',
+      company: '武汉格莱信息科技有限公司'
+    }
+  ]
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      personList
+    },
+    methods: {
+
+    },
+    components: {
+      glCard: {
+        template: '#temp',
+        props: ['person'],
+        methods: {
+          changePerson: function () {
+            if (this.highlight == '') {
+              this.highlight = 'highlight'
+              this.select=true
+            } else {
+              this.highlight = ''
+              this.select=false
+            }
+          }
+        },
+        data: function () {
+          return {
+            highlight: '',
+            selected: false
+          }
+        }
+      }
+    }
+  })
+</script>

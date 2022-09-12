@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态组件</title>
+  <style>
+    .home {
+      width: 200px;
+      height: 200px;
+      background: firebrick;
+    }
+
+    .about {
+      width: 200px;
+      height: 200px;
+      background: forestgreen;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <h2>这是组件</h2>
+      <!-- 需求：以下两个组件不会同时出现 -->
+      <!-- <home></home>
+      <about></about> -->
+<!-- is用于设置指定组件的名称，:is 相当于动态绑定一个组件 -->
+      <component :is="change"></component>
+
+    </div>
+    <button @click='setHome'>index</button>
+    <button @click='setAbout'>about</button>
+  </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  let home = {
+    template: `<div class="home">这是首页</div>`,
+  }
+  let about = {
+    template: `<div class="about">关于我们</div>`,
+  }
+
+  new Vue({
+    el: '#app',
+    data: {
+      change: 'home'
+    },
+    methods: {
+      setHome() {
+        this.change = 'home'
+      },
+      setAbout() {
+        this.change = 'about'
+      },
+      // setComponent(name) {
+      //   this.change = name;
+      // }
+
+    },
+    components: {
+      home,
+      about
+    }
+  })
+</script>
+
+</html>

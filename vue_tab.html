@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选项卡</title>
+  <style>
+    span {
+      display: inline-block;
+      padding: 5px 20px;
+      background: #888;
+      border-radius: 5px;
+      margin: 0 10px;
+      color: #fff;
+    }
+
+    span.act {
+      background: firebrick;
+    }
+
+    li {
+      height: 200px;
+      width: 200px;
+      display: none;
+      background: aliceblue;
+    }
+
+    li.act {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <div class="header">
+      <!-- <span class='act'>前端</span>
+      <span>后端</span>
+      <span>测试</span> -->
+      <!-- index===0?"act":"" -->
+      <span :class='{"act":index===tab_index}' v-for='(item,index) in header' @click='tab_Switch(index)'>{{item}}</span>
+    </div>
+
+    <ul>
+      <!-- <li class='act'>这是前端内容</li>
+      <li>这是后端内容</li>
+      <li>这是测试内容</li> -->
+      <li :class='index=== ?"act":""' v-for='(item,index) in content'>{{item}}</li>
+    </ul>
+
+  </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      header: ['前端', '后端', '测试'],
+      content: ['这是前端内容', '这是后端内容', '这是测试内容'],
+      tab_index: 0, //当前默认高亮
+    },
+    methods: {
+      tab_Switch(index) {
+        // console.log(index);
+        this.tab_index = index;
+      }
+    },
+
+  })
+</script>
+
+</html>

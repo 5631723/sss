@@ -1,0 +1,28 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.container {
+	display: flex;
+	background-color: lightcyan;
+	height: 40px;
+	/*居于底部显示*/
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	/*top: 0px;*/
+	bottom: 0px;
+}
+
+.container .item {
+	flex: 1;
+	text-align: center;
+	/*设置这个文字上下居中*/
+	line-height: 40px;
+}
+
+.container .item .txt:hover {
+	border-top: 3px solid cadetblue;
+	padding: 5px 10px;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="{CHARSET}">
+		<title></title>
+	</head>
+
+	<body>
+
+		<script type="text/javascript">
+			var courses=[1,2,3,4,5];
+			
+			var data = {};
+			courses.forEach(e => {
+				Object.assign(data,{a:e})
+			});
+			
+			console.log(data.a);
+		</script>
+
+	</body>
+
+</html>

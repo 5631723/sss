@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+  <style>
+    img {
+      position: absolute;
+      transform: rotateZ(0deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <img src="./img/thumb-4.jpg" v-drag alt="" @click='change'>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        deg: 0
+      },
+      methods: {
+        change: () => {
+          var a = document.querySelector('img');
+          vm.deg += 15
+          console.log(vm.deg)
+          a.style.transform = 'rotateZ(' + vm.deg + 'deg)'
+          // a.style.transform = 'rotateZ(' + (deg + 15) + 'deg)'
+        }
+      },
+      directives: {
+        drag: {
+          inserted(el, binding, vnode) {
+            var i = 0;
+            el.onclick = function () {
+              i += 15;
+              // el.style.transform = 'rotateZ(' + i + 'deg)'
+              // alert('sss')
+              // console.log(this.deg)
+
+            }
+          },
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

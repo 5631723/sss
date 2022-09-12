@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    li {
+      list-style: none;
+      background: #008;
+      border-bottom: 1px solid saddlebrown;
+      color: #fff;
+    }
+
+    .item {
+      width: 300px;
+      text-align: center;
+      border-bottom: 1px firebrick solid;
+    }
+
+    ul {
+      /* display: none; */
+      margin: 0;
+      padding: 0;
+    }
+
+    .act {
+      background: firebrick;
+      color: #fff;
+    }
+    p{
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="item" v-for='(item,index) in list' :key='index'>
+      <p :class='{"act":active===index}' @click='slide(index)'>{{item.title}}</p>
+      <ul v-show='active===index'>
+        <li v-for='item2 in item.arr'>{{item2}}</li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+
+<script src="./js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      list: [{
+          title: '编程',
+          arr: ['ps', 'html']
+        },
+        {
+          title: '基础',
+          arr: ['语文', '数学']
+        },
+        {
+          title: '动画',
+          arr: ['喜洋洋', '熊出没']
+        },
+      ],
+      active: -1,
+    },
+    methods: {
+      slide(i) {
+        this.active = i;
+      }
+    },
+  })
+</script>
+
+</html>

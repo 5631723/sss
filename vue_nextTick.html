@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nextTick</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class='text'>
+      我的名字是:{{name}}
+    </div>
+  </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      name: ''
+    },
+    mounted() {
+      this.name = '小王';
+      this.name = '小王1';
+      this.name = '小王2';//连续更改这么多次（或在其他地方更新），没有必要让页面更新多次，所以才会有列队的概念
+
+      console.log(this.name);
+      console.log(document.querySelectorAll('.text')[0].innerHTML); //挂载已经完成，但是获取不到页面上的数据
+
+      //vue为了性能，生成了一个队列(因为修改数据的原因，可能是任何地方)，在修改数据后，并不会第一时间去更新视图，所以立即查看页面元素还是原来的效果
+
+      console.time('计时')
+      // console.timeEnd('计时') //时间短，相当于同步调用
+      //在下次dom更新之后，执行回调
+      this.$nextTick(function () {
+        console.log(document.querySelectorAll('.text')[0].innerHTML);
+        console.timeEnd('计时') //内置计算时差方法，时间长，相当于一个异步回调
+      });
+
+    },
+  })
+</script>
+
+</html>

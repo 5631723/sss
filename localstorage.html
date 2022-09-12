@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<input type="text" id="txt" value='' />
+		<input type="button" value="set" id="btnset" />
+		<input type="button" value="get" id="btnget" />
+		<ul id="h">
+			<li>
+
+			</li>
+		</ul>
+	</body>
+
+</html>
+<script>
+	//localStorage.clear();
+	if(localStorage.getItem("history") == null) {
+		list = [];
+	} else {
+		var all = localStorage.getItem("history");
+		list = JSON.parse(all);
+	}
+	$("#btnset").click(function() {
+		var t = {
+			value: $("#txt").val()
+		};
+		list.push(t);
+		console.log(list);
+		localStorage.setItem("history", JSON.stringify(list));
+
+	});
+
+	$("#btnget").click(function() {
+		$("#h").empty();
+		var all = localStorage.getItem("history");
+		var a = JSON.parse(all);
+		console.log(a);
+		console.log(all.length);
+		for(var i = 0; i < a.length; i++) {
+			var t = "<li>" + a[i].value + "</li>"
+			$("#h").append(t);
+		}
+	})
+</script>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.active{
+				background-color: burlywood;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<button class="active">选项一</button>
+		<button>选项二</button>
+		<button>选项三</button>
+		<p class="active">内容一</p>
+		<p>内容二</p>
+		<p>内容三</p>
+		<script>
+			var buttons = document.querySelectorAll('button')
+			var ps = document.querySelectorAll('p')
+			for(let i = 0; i < buttons.length; i++) {
+				buttons[i].onclick = function() {
+					for(let i = 0; i < buttons.length; i++) {
+						buttons[i].className = '';
+						ps[i].className = '';
+					}
+					this.className = 'active';
+					ps[i].className = 'active';
+				}
+			}
+			</script>   
+	</body>
+</html>

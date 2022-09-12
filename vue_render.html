@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  //参考文档设置
+
+  new Vue({
+    el: '#app',
+    data: {
+      a: 1
+    },
+    template: `<div>这是template {{a}} </div>`, //当使用render时，不会显示template
+    render(createElement) {
+      // return createElement('div','这是render')
+      return createElement(
+        //第一个参是元素标签
+        'div',
+        //第二个参数是标签的属性或方法
+        {
+          class: 'red bold',
+          style: {
+            color: 'red',
+            fontSize: '24px'
+          },
+          domProps: {
+            // innerHTML: '这是自定义的render'
+          }
+        },
+        //给元素增加子元素
+        [
+          createElement('span', 'spanA'),
+          createElement('hr'),
+          createElement('span', 'spanB'),
+        ]
+      )
+    }
+
+  })
+</script>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="{CHARSET}">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+
+</html>
+<script type="text/javascript">
+	// 定义object函数
+	function object(o) {
+		function F() {}
+		F.prototype = o
+		return new F()
+	}
+
+	// 定义寄生式核心函数
+	function inhreitPrototype(subType, superType) {
+		var prototype = object(superType.prototype)
+		prototype.constructor = subType
+		subType.prototype = prototype
+	}
+
+	// 定义Animal构造函数
+	function Animal(age) {
+		this.age = age
+		this.colors = ["red", "green"]
+	}
+
+	// 给Animal添加方法
+	Animal.prototype.animalFunction = function() {
+		alert("Hello Animal")
+	}
+
+	// 定义Person构造函数
+	function Person(name, age) {
+		Animal.call(this, age)
+		this.name = name
+	}
+
+	// 使用寄生组合式核心函数
+	inhreitPrototype(Person, Animal)
+
+	// 给Person添加方法
+	Person.prototype.personFunction = function() {
+		alert("Hello Person")
+	}
+</script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="UTF-8">
+		<title></title>
+
+		<style>
+			.div {
+				width: 200px;
+				height: 200px;
+				background-color: red;
+				transition: width 2s linear 0s;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="div"></div>
+	</body>
+
+</html>
+<script>
+	var div = document.querySelectorAll(".div")[0];　　　　　　
+	var num = 0;　　　　　　
+	var t = null;　　　　　　 
+	
+	//事件累加的功能
+	//js 多次触发点击事件,在一定延迟内只执行一次	　　　　　　
+	div.onclick = function() {　　　　　　　　
+		if(t != null) {　　　　　　　　　　
+			clearTimeout(t)　　　　　　　　
+		}　　　　　　　　
+		t = setTimeout(function() {　　　　　　　　　　
+			num++;　　　　　　　　　　
+			console.log(num);　　　　　　　　
+		}, 500)　　　　　　
+	}
+</script>

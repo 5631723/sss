@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生命周期</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      {{name}}
+    </div>
+    <button @click='change'> update </button>
+
+    <button @click='destroy'>销毁</button>
+  </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  let vm = new Vue({
+    // el: '#app',  //可以通过vm.$mount挂载
+    data: {
+      name: '小明'
+    },
+    methods: {
+      change() {
+        this.name = '不是小明'
+      },
+      destroy() {
+        vm.$destroy() //销毁vm
+      }
+    },
+    // template:`<p>{{name}}是一个模板</p>`,//如果有template,el就不生效,会通过template替换el挂载
+    //创建前
+    beforeCreate() {
+      console.log(this.name); //获取不到数据
+      console.log(document.querySelector('#app').innerHTML); //挂载元素没有变化
+    },
+    //创建后,有数据,但没有与页面关联
+    created() {
+      console.log(this.name); //可以获取到数据
+      console.log(document.getElementById('app').innerHTML); //挂载元素没有变化
+    },
+    //挂载前,有挂载动作,但没挂载上内容
+    beforeMount() {
+      console.log(this.name); //可以获取到数据
+      console.log(document.getElementById('app').innerHTML); //挂载元素没有变化
+    },
+    //挂载完毕,数据与页面均已完成
+    mounted() {
+      console.log(this.name); //可以获取到数据
+      console.log(document.getElementById('app').innerHTML); //挂载元素已经完成，如果使用template就找不到app元素了
+    },
+    //更新前
+    beforeUpdate() {
+      console.log(this.name); //数据改变，但没有渲染，页面没有变化
+      console.log(document.getElementById('app').innerHTML); //挂载元素没有变化,依然是之前的显示
+    },
+    //更新后
+    updated() {
+      console.log(this.name); //数据改变
+      console.log(document.getElementById('app').innerHTML); //挂载元素也改变
+    },
+    //销毁前
+    beforeDestroy() {
+      console.log(this.name); //元素依然可以获取
+    },
+    //销毁后
+    destroyed() {
+      console.log(this.name); //元素依然可以获取,但数据静态化，不在继续监听
+    },
+  })
+
+  //通过vm.$mount动态挂载到#app上,甚至可以延迟或通过ajax返回后再挂载
+  setTimeout(() => {
+    vm.$mount('#app') //挂载
+  }, 1000);
+</script>
+
+</html>

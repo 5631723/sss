@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    li {
+      list-style: none;
+    }
+
+    li p {
+      font-size: 12px;
+      color: #999;
+    }
+
+    li div {
+      text-align: right;
+    }
+
+    #app {
+      width: 300px;
+      margin: 0 auto;
+      border: 1px solid #eee
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="app">
+
+    <div class="content">
+      <ul>
+        <!-- <li>
+          <p>2021-9-1 11:16:02</p>
+          <div>你好</div>
+        </li> -->
+        <li v-for='(item,index) in list'>
+          <p>{{item.date}}</p>
+          <div>{{item.msg}}</div>
+        </li>
+      </ul>
+    </div>
+    <div class="footer">
+      <input type="text" v-model='msg'><button @click='send'>发送</button>
+    </div>
+  </div>
+
+</body>
+<script src="./js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      msg: '',
+      list: [{
+        date: '2021年9月1日11:22:26',
+        msg: '你好'
+      }]
+    },
+    methods: {
+      send() {
+        this.list.push({
+          date: '2021年9月1日11:23:31',
+          msg: this.msg
+        })
+        this.msg = ''
+      }
+    }
+  })
+</script>
+
+</html>

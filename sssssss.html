@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+
+		<div>
+			aaaaaaa
+			<span>				
+				5555555
+			</span>
+		</div>
+
+	</body>
+
+</html>
+<script>
+	$("div").click(function() {
+		console.log("div");
+
+	});
+	//	$("span").click(function(){
+	//		console.log("span");
+	//		return false;
+	//	})
+
+	function dd() {
+		console.log("span");
+		return false; //阻止冒泡
+	}
+
+	$("span").click(function(e) {
+
+		console.log("span");
+		//return false;//阻止冒泡
+
+		e.stopPropagation();
+
+	})
+</script>

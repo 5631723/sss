@@ -1,0 +1,40 @@
+</script>
+<script type="text/javascript">
+	var totalHeight = $(document).height(); //整个文档高度
+	var seeHeight = $(window).height(); //浏览器可视窗口高度
+	var thisBodyHeight = $(document.body).height(); //浏览器当前窗口文档body的高度
+	var totalBodyHeight = $(document.body).outerHeight(true); //浏览器当前窗口文档body的总高度 包括border padding margin
+	var thisWidth = $(window).width(); //浏览器当前窗口可视区域宽度
+	var thisDocumentWidth = $(document).width(); //浏览器当前窗口文档对象宽度
+	var thisBodyWidth = $(document.body).width(); //浏览器当前窗口文档body的宽度
+	var totalBodyWidth = $(document.body).outerWidth(true); //浏览器当前窗口文档body的总宽度 包括border padding margin
+	var scrollTop = $(window).scrollTop(); //浏览器可视窗口顶端距离网页顶端的高度（垂直偏移）
+	// console.log(totalHeight,seeHeight,thisBodyHeight,totalBodyHeight,thisWidth,thisDocumentWidth,thisBodyWidth,totalBodyWidth,scrollTop);
+	var num = 1
+	var t = null;
+	//添加滚动事件
+	$(window).scroll(function() {　　　　
+		//大屏不分页
+		if(thisWidth >= 768)
+			return;
+
+		scrollTop = $(window).scrollTop();
+		totalHeight = $(document).height();
+		// console.log(scrollTop,seeHeight,totalHeight)
+		if(scrollTop + seeHeight + 50 > totalHeight) {
+			//处理节流　　　　
+			if(t != null) {　　　　　　　　　　
+				clearTimeout(t)　　　　　　　　
+			}　　　　　　　　
+			t = setTimeout(function() {
+				num++
+				console.log(num);
+				var data = {
+					skip: (num - 1) * 6,
+					limit: 6
+				}
+				smGetAllSS(data);　　　　　　　
+			}, 1000)　　　
+		}　　　
+	})
+</script>
